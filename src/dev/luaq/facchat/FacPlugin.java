@@ -6,7 +6,7 @@ import dev.luaq.facchat.command.FacCommunication;
 import dev.luaq.facchat.command.ReloadConfig;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.listener.ConnectionHandler;
-import dev.luaq.facchat.listener.PlaceholderHandler;
+import dev.luaq.facchat.listener.PrefixHandler;
 import dev.luaq.facchat.util.CommandUtils;
 import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class FacPlugin extends JavaPlugin {
         }
 
         // register the handler
-        PlaceholderHandler handler = new PlaceholderHandler();
+        PrefixHandler handler = new PrefixHandler();
         handler.register();
     }
 
