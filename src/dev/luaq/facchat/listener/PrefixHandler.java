@@ -14,6 +14,11 @@ public class PrefixHandler extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
     public String getAuthor() {
         return "luaq";
     }
