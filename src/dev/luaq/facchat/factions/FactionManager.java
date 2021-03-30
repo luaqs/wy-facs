@@ -3,6 +3,7 @@ package dev.luaq.facchat.factions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dev.luaq.facchat.FacPlugin;
+import dev.luaq.facchat.factions.player.FactionPlayer;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 

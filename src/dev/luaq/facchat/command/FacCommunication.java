@@ -2,6 +2,8 @@ package dev.luaq.facchat.command;
 
 import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
+import dev.luaq.facchat.factions.player.FactionPlayer;
+import dev.luaq.facchat.factions.player.PlayerSettings;
 import dev.luaq.facchat.util.LangUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +27,14 @@ public class FacCommunication implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            // TODO: 2021-03-29 toggle chat
+            FactionPlayer facPlayer = manager.getFactionPlayer(player.getUniqueId());
+            PlayerSettings settings = facPlayer.getSettings();
+
+            boolean primary = !settings.isFactionChatPrimary();
+            settings.setFactionChatPrimary(primary);
+
+            player.sendMessage(LangUtils.langf("faction.chat.toggleprimary", primary ? "FACTION" : "PUBLIC"));
+
             return true;
         }
 

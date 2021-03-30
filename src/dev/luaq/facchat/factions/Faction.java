@@ -1,5 +1,6 @@
 package dev.luaq.facchat.factions;
 
+import dev.luaq.facchat.factions.player.FactionPlayer;
 import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,33 +41,21 @@ public class Faction {
     }
 
     public void chat(Player player, String message) {
-        broadcastLang("faction.broadcast.chat", name, player.getName(), message);
+        for (FactionPlayer member : onlineMembers()) {
+            if (!member.getSettings().isSeeFactionChat()) {
+                continue; // they don't wanna see faction chat
+            }
+
+            member.getOnlinePlayer().sendMessage(LangUtils.langf("faction.broadcast.chat", name, player.getName(), message));
+        }
     }
 
     public void broadcastLang(String lang, Object... format) {
-        List<FactionPlayer> members = getMembers();
-        for (FactionPlayer member : members) {
-            Player player = member.getPlayer().getPlayer();
-            // ignore players that could not be fetched
-            if (player == null) {
-                continue;
-            }
-
-            player.sendMessage(LangUtils.langf(lang, format));
-        }
+        onlineMembers().forEach(player -> player.getOnlinePlayer().sendMessage(LangUtils.langf(lang, format)));
     }
 
     public void broadcast(String message, Object... format) {
-        List<FactionPlayer> members = getMembers();
-        for (FactionPlayer member : members) {
-            Player player = member.getPlayer().getPlayer();
-            // ignore players that could not be fetched
-            if (player == null) {
-                continue;
-            }
-
-            player.sendMessage(LangUtils.colorf(message, format));
-        }
+        onlineMembers().forEach(player -> player.getOnlinePlayer().sendMessage(LangUtils.colorf(message, format)));
     }
 
     public boolean isLeader(Player player) {
@@ -76,6 +65,11 @@ public class Faction {
     public boolean hasMember(UUID uuid) {
         return getMembers().stream()
                 .anyMatch(player -> player.getUuid().equals(uuid));
+    }
+
+    public List<FactionPlayer> onlineMembers() {
+        return getMembers().stream()
+                .filter(member -> member.getPlayer().isOnline()).collect(Collectors.toList());
     }
 
     public List<FactionPlayer> getMembers() {

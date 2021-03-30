@@ -2,7 +2,8 @@ package dev.luaq.facchat.command;
 
 import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
-import dev.luaq.facchat.factions.FactionPlayer;
+import dev.luaq.facchat.factions.player.FactionPlayer;
+import dev.luaq.facchat.factions.player.PlayerSettings;
 import dev.luaq.facchat.util.LangUtils;
 import dev.luaq.facchat.util.CommandUtils;
 import org.bukkit.OfflinePlayer;
@@ -45,6 +46,17 @@ public class FacBase implements CommandExecutor, TabCompleter {
                 break;
 
             case "chat":
+                FactionPlayer facPlayer = manager.getFactionPlayer(player.getUniqueId());
+                PlayerSettings settings = facPlayer.getSettings();
+
+                // toggle it
+                boolean seeFactionChat = !settings.isSeeFactionChat();
+                settings.setSeeFactionChat(seeFactionChat);
+
+                player.sendMessage(LangUtils.langf("faction.chat.toggle", seeFactionChat ? "on" : "off"));
+
+                break;
+
             case "info":
                 player.sendMessage(LangUtils.langf("error.lazy"));
                 // TODO: 2021-03-29 dsiahdu

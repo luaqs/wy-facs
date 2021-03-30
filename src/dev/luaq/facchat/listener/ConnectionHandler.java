@@ -2,7 +2,7 @@ package dev.luaq.facchat.listener;
 
 import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
-import dev.luaq.facchat.factions.FactionPlayer;
+import dev.luaq.facchat.factions.player.FactionPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
