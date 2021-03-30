@@ -74,6 +74,12 @@ public class FacBase implements CommandExecutor, TabCompleter {
             return;
         }
 
+        // make sure the player cannot kick themselves
+        if (target.getUuid().equals(player.getUniqueId())) {
+            player.sendMessage(LangUtils.langf("faction.error.kickself"));
+            return;
+        }
+
         if (!faction.hasMember(target.getUuid())) {
             player.sendMessage(LangUtils.langf("permission.cantkick", target.getName()));
             return;

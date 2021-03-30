@@ -19,6 +19,7 @@ lang:
       noexisting: '&cFaction with the name ''%s'' does not exist.'
       nofaction: '&cYou are not in a faction right now.'
       cantleave: '&cYou cannot leave the faction when you''re the leader. If you want this changed please talk to the admins.'
+      kickself: '&cYou can''t kick yourself, sorry, nice try to escape.'
 
     broadcast:
       chat: '&5%s > &e%s&f: %s'
