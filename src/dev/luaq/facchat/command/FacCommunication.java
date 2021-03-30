@@ -2,7 +2,7 @@ package dev.luaq.facchat.command;
 
 import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
-import dev.luaq.facchat.util.ChatUtils;
+import dev.luaq.facchat.util.LangUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,7 +20,7 @@ public class FacCommunication implements CommandExecutor {
         Faction fac = manager.getPlayerFaction(player.getUniqueId());
 
         if (fac == null) {
-            player.sendMessage(ChatUtils.color("&cYou are not in a faction, stop talking to your imaginary friends."));
+            player.sendMessage(LangUtils.langf("faction.error.nofaction"));
             return true;
         }
 

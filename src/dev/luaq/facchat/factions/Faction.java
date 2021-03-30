@@ -1,8 +1,7 @@
 package dev.luaq.facchat.factions;
 
-import dev.luaq.facchat.util.ChatUtils;
+import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -41,7 +40,20 @@ public class Faction {
     }
 
     public void chat(Player player, String message) {
-        broadcast("&aFChat > &f%s: %s", player.getName(), message);
+        broadcastLang("faction.broadcast.chat", name, player.getName(), message);
+    }
+
+    public void broadcastLang(String lang, Object... format) {
+        List<FactionPlayer> members = getMembers();
+        for (FactionPlayer member : members) {
+            Player player = member.getPlayer().getPlayer();
+            // ignore players that could not be fetched
+            if (player == null) {
+                continue;
+            }
+
+            player.sendMessage(LangUtils.langf(lang, format));
+        }
     }
 
     public void broadcast(String message, Object... format) {
@@ -53,7 +65,7 @@ public class Faction {
                 continue;
             }
 
-            player.sendMessage(ChatUtils.colorf(message, format));
+            player.sendMessage(LangUtils.colorf(message, format));
         }
     }
 

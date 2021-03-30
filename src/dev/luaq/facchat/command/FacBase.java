@@ -3,9 +3,8 @@ package dev.luaq.facchat.command;
 import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.factions.FactionPlayer;
-import dev.luaq.facchat.util.ChatUtils;
+import dev.luaq.facchat.util.LangUtils;
 import dev.luaq.facchat.util.CommandUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,7 +13,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,7 +46,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
             case "chat":
             case "info":
-                player.sendMessage(ChatUtils.color("&cI don't want to implement it, but if you find this then @ me with a screenshot."));
+                player.sendMessage(LangUtils.langf("error.lazy"));
                 // TODO: 2021-03-29 dsiahdu
                 break;
 
@@ -66,36 +64,36 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
     private void kickPlayer(String[] args, FactionManager manager, Player player, Faction faction) {
         if (faction == null || !faction.isLeader(player)) {
-            player.sendMessage(ChatUtils.color("&cYou have to be the leader of a faction to use this."));
+            player.sendMessage(LangUtils.langf("permission.leader"));
             return;
         }
 
         FactionPlayer target;
         if (args.length < 2 || (target = FactionManager.getManager().getFactionPlayer(args[1])) == null) {
-            player.sendMessage(ChatUtils.color("&cSpecify a valid player to kick."));
+            player.sendMessage(LangUtils.langf("error.noplayer"));
             return;
         }
 
         if (!faction.hasMember(target.getUuid())) {
-            player.sendMessage(ChatUtils.colorf("&cYou cannot kick %s, they are not in your faction.", target.getName()));
+            player.sendMessage(LangUtils.langf("permission.cantkick", target.getName()));
             return;
         }
 
         // remove their faction
         manager.clearPlayerFaction(target.getUuid());
-        faction.broadcast("&f%s &ahas kicked &f%s &afrom the faction.", player.getName(), target.getName());
+        faction.broadcastLang("faction.broadcast.playerkicked", player.getName(), target.getName());
 
         OfflinePlayer offlineTarget = target.getPlayer();
 
         // send a message to them if they are online
         if (offlineTarget.isOnline()) {
-            offlineTarget.getPlayer().sendMessage(ChatUtils.color("&cYou have been kicked from the faction."));
+            offlineTarget.getPlayer().sendMessage(LangUtils.langf("faction.kicked"));
         }
     }
 
     private void joinFaction(Command command, String[] args, FactionManager manager, Player player, Faction faction) {
         if (faction != null) {
-            player.sendMessage(ChatUtils.color("&cYou cannot join a faction, you're in one."));
+            player.sendMessage(LangUtils.langf("faction.error.nojoin"));
             return;
         }
 
@@ -106,29 +104,31 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
         Faction requested = manager.getFaction(args[1]);
         if (requested == null) {
-            player.sendMessage(ChatUtils.colorf("&cCould not find the faction with abbreviation: %s", args[1]));
+            player.sendMessage(LangUtils.langf("faction.error.noexisting", args[1]));
             return;
         }
 
+        // TODO: 2021-03-30 send request
+
         // request to join the faction
         requested.requestJoin(player);
-        player.sendMessage(ChatUtils.colorf("&aSuccessfully requested to join the '%s' faction, wait for the leader to accept.", requested.getName()));
+        player.sendMessage(LangUtils.langf("faction.join.requested", requested.getName()));
     }
 
     private void quitFaction(FactionManager manager, Player player, Faction faction) {
         if (faction == null) {
-            player.sendMessage(ChatUtils.color("&cYou aren't in a faction right now."));
+            player.sendMessage(LangUtils.langf("faction.error.nofaction"));
             return;
         }
 
         if (faction.isLeader(player)) {
-            player.sendMessage(ChatUtils.color("&cYou cannot leave your own faction, you're the leader. Talk to the admins if you'd like a change."));
+            player.sendMessage(LangUtils.langf("faction.error.cantleave"));
             return;
         }
 
         manager.clearPlayerFaction(player.getUniqueId());
-        player.sendMessage(ChatUtils.color("&aYou have successfully left the faction, farewell."));
-        faction.broadcast("&f%s &ahas quit the faction.", player.getName());
+        player.sendMessage(LangUtils.langf("faction.left", faction.getName()));
+        faction.broadcastLang("faction.broadcast.playerquit", player.getName());
     }
 
     @Override

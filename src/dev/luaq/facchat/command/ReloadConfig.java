@@ -14,7 +14,7 @@ public class ReloadConfig implements CommandExecutor {
         manager.reloadFactions();
 //        manager.loadPlayers();
 
-        sender.sendMessage(LangUtils.color("&aReloaded the factions & players."));
+        sender.sendMessage(LangUtils.langf("configreload"));
 
         return true;
     }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class CommandUtils {
     public static void sendUsage(Player player, Command cmd) {
-        player.sendMessage(ChatUtils.colorf("&cUsage: %s", cmd.getUsage()));
+        player.sendMessage(LangUtils.langf("error.usage", cmd.getUsage()));
     }
 
     public static void registerCommand(String name, CommandExecutor executor) {
