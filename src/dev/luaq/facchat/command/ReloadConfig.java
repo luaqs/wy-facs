@@ -1,7 +1,7 @@
 package dev.luaq.facchat.command;
 
 import dev.luaq.facchat.factions.FactionManager;
-import dev.luaq.facchat.util.ChatUtils;
+import dev.luaq.facchat.util.LangUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,9 +12,9 @@ public class ReloadConfig implements CommandExecutor {
         // reload the config
         FactionManager manager = FactionManager.getManager();
         manager.reloadFactions();
-        manager.loadPlayers();
+//        manager.loadPlayers();
 
-        sender.sendMessage(ChatUtils.color("&aReloaded the factions & players."));
+        sender.sendMessage(LangUtils.color("&aReloaded the factions & players."));
 
         return true;
     }
