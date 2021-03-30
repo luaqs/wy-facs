@@ -1,0 +1,26 @@
+prefixstyle: '&7[%s]'
+
+maxsize: 10
+playerfile: 'players.json'
+
+factions:
+  cc:
+    leader: 'e17608a4-2f5c-4f53-83f4-93f23835cc5d'
+    name: 'Crimson Cult'
+    max: 0
+  aa:
+    leader: '06153fd2-9a4d-4e79-8557-47eda26e1f78'
+    name: 'Arcane Acolytes'
+    max: 0
+  sc:
+    leader: 'f88e7580-09bf-4a75-8306-f7f19811fcf9'
+    name: 'Steel Convenant'
+    max: 0
+  how:
+    leader: 'ef6e5448-361f-4724-ae15-1210c150f5bb'
+    name: 'Hunters of Wildverne'
+    max: 0
+  lxe:
+    leader: 'ef6e5448-361f-4724-ae15-1210c150f5bb'
+    name: 'Lord''s of Excalibur''s Edge'
+    max: 0

@@ -1,0 +1,33 @@
+name: 'FactionChat'
+author: 'luaq'
+version: '1.0'
+main: 'dev.luaq.facchat.FacPlugin'
+
+depend: [ 'Vault' ]
+
+commands:
+  faction:
+    aliases: [ 'f', 'fac' ]
+    description: 'Command to handle user''s faction status.'
+    usage: "/faction <'join', 'kick', 'info', 'chat', 'leave'> [name]"
+
+  factionadmin:
+    aliases: [ 'facman', 'fa', 'facadmin' ]
+    description: 'Admin command for managing existing factions.'
+    usage: "/factionadmin <'add', 'mod', 'remove'> <[...faction]> <'leader', 'max', 'name'> [value]"
+    permission: 'factionchat.admin'
+
+  factionchat:
+    aliases: [ 'fc', 'facchat' ]
+    usage: '/fc <msg>'
+
+  factionreload:
+    aliases: [ 'frl', 'facrl', 'factionrl' ]
+    description: 'Reloads the config.yml file.'
+    usage: '/factionreload'
+    permission: 'factionchat.reload'
+
+  factionspy:
+    aliases: [ 'facspy' ]
+    usage: "/facspy <'all', 'off', [...faction]>"
+    permission: 'factionchat.spy'
