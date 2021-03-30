@@ -1,7 +1,40 @@
-prefixstyle: '&7[%s]'
+prefixstyle: '&7[%s] '
 
 maxsize: 10
 playerfile: 'players.json'
+
+lang:
+  error:
+    lazy: '&cI don''t want to implement it, but if you find this @ me in the Discord.'
+    usage: '&cUsage: %s'
+    noplayer: '&cPlayer not found.'
+
+  permission:
+    leader: '&cYou have to be the leader of a faction to do this.'
+    cantkick: '&cYou can''t kick %s, they are not in your faction.'
+
+  faction:
+    error:
+      nojoin: '&cYou cannot join a faction, you''re in one.'
+      noexisting: '&cFaction with the name ''%s'' does not exist.'
+      nofaction: '&cYou are not in a faction right now.'
+      cantleave: '&cYou cannot leave the faction when you''re the leader. If you want this changed please talk to the admins.'
+
+    broadcast:
+      chat: '&5%s > &e%s&f: %s'
+      playerkicked: '&c%s has kicked %s from the faction.'
+      playerquit: '&c%s has quit the faction.'
+
+    kicked: '&cYou''ve been kicked from the faction.'
+    left: '&aYou have successfully left %s, farewell!'
+
+    join:
+      requested: '&aYour join request has been sent to %s, wait for the leader to accept.'
+      leaderoff: '&cYou cannot request to join %s at the time, the leader is offline. If you are a part of this faction please wait until they are online or tell them to login.'
+      request: '&a%s has requested to join the faction. Do &6/f accept %1$s &ato let them in.'
+
+  configreload: '&aReloaded the factions config.'
+
 
 factions:
   cc:
