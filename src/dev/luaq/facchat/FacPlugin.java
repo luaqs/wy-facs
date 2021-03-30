@@ -1,56 +1,48 @@
 package dev.luaq.facchat;
 
 import dev.luaq.facchat.command.FacAdmin;
-import dev.luaq.facchat.command.FacCommunication;
 import dev.luaq.facchat.command.FacBase;
+import dev.luaq.facchat.command.FacCommunication;
 import dev.luaq.facchat.command.ReloadConfig;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.listener.ConnectionHandler;
+import dev.luaq.facchat.listener.PlaceholderHandler;
 import dev.luaq.facchat.util.CommandUtils;
 import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
-import net.milkbowl.vault.chat.Chat;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FacPlugin extends JavaPlugin {
     @Getter private static FacPlugin instance;
-    @Getter private Chat chat;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        if (!startVault()) {
-            return; // couldn't start Vault
-        }
-
         loadConfig();
 
+        regPlaceholder();
         regCommands();
         regEvents();
+    }
+
+    private void regPlaceholder() {
+        // make sure PlaceholderAPI is present
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") == null) {
+            getLogger().warning("Missing PlaceholderAPI, the prefixing will not be able to show up.");
+            return;
+        }
+
+        // register the handler
+        PlaceholderHandler handler = new PlaceholderHandler();
+        handler.register();
     }
 
     @Override
     public void onDisable() {
         // save the player data
         FactionManager.getManager().savePlayers();
-    }
-
-    private boolean startVault() {
-        PluginManager manager = Bukkit.getPluginManager();
-
-        // can't continue without vault
-        if (manager.getPlugin("Vault") == null) {
-            getLogger().severe("Cannot continue without Vault dependency.");
-            manager.disablePlugin(this);
-            return false; // if the vault dependency cannot be met
-        }
-
-        regChat();
-        return true;
     }
 
     private void loadConfig() {
@@ -65,12 +57,6 @@ public class FacPlugin extends JavaPlugin {
 
         // set the config section for the LangUtils
         LangUtils.setLangSect(getConfig().getConfigurationSection("lang"));
-    }
-
-    private void regChat() {
-        RegisteredServiceProvider<Chat> provider = getServer().getServicesManager().getRegistration(Chat.class);
-        // get the provider or null
-        chat = provider != null ? provider.getProvider() : null;
     }
 
     private void regCommands() {
