@@ -5,8 +5,9 @@ import dev.luaq.facchat.command.FacBase;
 import dev.luaq.facchat.command.FacCommunication;
 import dev.luaq.facchat.command.ReloadConfig;
 import dev.luaq.facchat.factions.FactionManager;
+import dev.luaq.facchat.listener.ChatHandler;
 import dev.luaq.facchat.listener.ConnectionHandler;
-import dev.luaq.facchat.listener.PrefixHandler;
+import dev.luaq.facchat.listener.placeholder.PrefixHandler;
 import dev.luaq.facchat.util.CommandUtils;
 import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
@@ -70,5 +71,6 @@ public class FacPlugin extends JavaPlugin {
         PluginManager manager = getServer().getPluginManager();
 
         manager.registerEvents(new ConnectionHandler(), this);
+        manager.registerEvents(new ChatHandler(), this);
     }
 }
