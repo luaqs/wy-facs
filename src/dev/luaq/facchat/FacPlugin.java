@@ -7,6 +7,7 @@ import dev.luaq.facchat.command.ReloadConfig;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.listener.ConnectionHandler;
 import dev.luaq.facchat.util.CommandUtils;
+import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
@@ -61,6 +62,9 @@ public class FacPlugin extends JavaPlugin {
 
         manager.loadPlayers();
         manager.reloadFactions();
+
+        // set the config section for the LangUtils
+        LangUtils.setLangSect(getConfig().getConfigurationSection("lang"));
     }
 
     private void regChat() {
