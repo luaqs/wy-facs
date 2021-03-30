@@ -26,6 +26,10 @@ lang:
       playerkicked: '&c%s has kicked %s from the faction.'
       playerquit: '&c%s has quit the faction.'
 
+    chat:
+      focustoggle: '&aNow speaking in &6%s&a, use this command again to toggle it.'
+      toggle: '&aToggled the faction chat &6%s&a.'
+
     kicked: '&cYou''ve been kicked from the faction.'
     left: '&aYou have successfully left %s, farewell!'
 
