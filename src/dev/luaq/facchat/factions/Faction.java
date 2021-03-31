@@ -1,5 +1,6 @@
 package dev.luaq.facchat.factions;
 
+import dev.luaq.facchat.FacPlugin;
 import dev.luaq.facchat.factions.player.FactionPlayer;
 import dev.luaq.facchat.factions.requests.Request;
 import dev.luaq.facchat.util.LangUtils;
@@ -16,7 +17,7 @@ public class Faction {
     @Getter private final String abbr;
 
     @Getter @Setter private String name;
-    @Getter @Setter private int maxMembers;
+    @Setter private int maxMembers;
     @Setter @Getter private UUID leader;
 
     public Faction(ConfigurationSection config, String key) {
@@ -80,5 +81,14 @@ public class Faction {
         return FactionManager.getManager().getPlayers().stream()
                 .filter(player -> player.getFactionName().equals(abbr))
                 .collect(Collectors.toList());
+    }
+
+    public int getMaxMembers() {
+        // implement properly
+        if (maxMembers == 0) {
+            return FacPlugin.getInstance().getConfig().getInt("maxsize");
+        }
+
+        return maxMembers;
     }
 }
