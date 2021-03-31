@@ -4,6 +4,8 @@ import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.factions.player.FactionPlayer;
 import dev.luaq.facchat.factions.player.PlayerSettings;
+import dev.luaq.facchat.factions.requests.Request;
+import dev.luaq.facchat.factions.requests.RequestManager;
 import dev.luaq.facchat.util.LangUtils;
 import dev.luaq.facchat.util.CommandUtils;
 import org.bukkit.OfflinePlayer;
@@ -29,6 +31,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
         Player player = (Player) sender;
         Faction faction = manager.getPlayerFaction(player.getUniqueId());
+        RequestManager requestManager = manager.getRequestManager();
 
         // send the usage if they provided no arguments
         if (args.length == 0) {
@@ -37,8 +40,12 @@ public class FacBase implements CommandExecutor, TabCompleter {
         }
 
         switch (args[0].toLowerCase()) {
+            case "accept":
+                acceptIntoFaction(args, manager, player, faction, requestManager);
+                break;
+
             case "join":
-                joinFaction(command, args, manager, player, faction);
+                joinFaction(command, args, manager, player, faction, requestManager);
                 break;
 
             case "leave":
@@ -73,8 +80,27 @@ public class FacBase implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private void acceptIntoFaction(String[] args, FactionManager manager, Player player, Faction faction, RequestManager requestManager) {
+        if (faction == null || !faction.isLeader(player.getUniqueId())) {
+            player.sendMessage(LangUtils.langf("permission.leader"));
+            return;
+        }
+
+        FactionPlayer target;
+        if (args.length < 2 || (target = manager.getFactionPlayer(args[1])) == null || !requestManager.hasRequest(target.getUuid())) {
+            player.sendMessage(LangUtils.langf("error.noplayer"));
+            return;
+        }
+
+        Request request = requestManager.getRequest(target.getUuid());
+
+        // accept the request
+        request.accept(requestManager);
+        faction.broadcastLang("faction.join.joined", player.getName(), target.getName());
+    }
+
     private void kickPlayer(String[] args, FactionManager manager, Player player, Faction faction) {
-        if (faction == null || !faction.isLeader(player)) {
+        if (faction == null || !faction.isLeader(player.getUniqueId())) {
             player.sendMessage(LangUtils.langf("permission.leader"));
             return;
         }
@@ -108,7 +134,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
         }
     }
 
-    private void joinFaction(Command command, String[] args, FactionManager manager, Player player, Faction faction) {
+    private void joinFaction(Command command, String[] args, FactionManager manager, Player player, Faction faction, RequestManager requestManager) {
         if (faction != null) {
             player.sendMessage(LangUtils.langf("faction.error.nojoin"));
             return;
@@ -119,16 +145,30 @@ public class FacBase implements CommandExecutor, TabCompleter {
             return;
         }
 
+        // if they have a request already
+        if (requestManager.hasRequest(player.getUniqueId())) {
+            player.sendMessage(LangUtils.langf("error.outgoing"));
+            return;
+        }
+
         Faction requested = manager.getFaction(args[1]);
         if (requested == null) {
             player.sendMessage(LangUtils.langf("faction.error.noexisting", args[1]));
             return;
         }
 
-        // TODO: 2021-03-30 send request
+        // check if the leader is online
+        Player leader = manager.getFactionPlayer(requested.getLeader()).getOnlinePlayer();
+        if (leader == null) {
+            player.sendMessage(LangUtils.langf("faction.error.leaderoff"));
+            return;
+        }
 
         // request to join the faction
         requested.requestJoin(player);
+
+        // let the leader and player know
+        leader.sendMessage(LangUtils.langf("faction.join.request", player.getName()));
         player.sendMessage(LangUtils.langf("faction.join.requested", requested.getName()));
     }
 
@@ -157,7 +197,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
             return;
         }
 
-        if (faction.isLeader(player)) {
+        if (faction.isLeader(player.getUniqueId())) {
             player.sendMessage(LangUtils.langf("faction.error.cantleave"));
             return;
         }
@@ -175,7 +215,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
         Player player = (Player) sender;
         Faction fac = FactionManager.getManager().getPlayerFaction(player.getUniqueId());
-        boolean isLeader = fac != null && fac.isLeader(player);
+        boolean isLeader = fac != null && fac.isLeader(player.getUniqueId());
 
         if (args.length <= 1 && args[0].isEmpty()) {
             List<String> tips = new ArrayList<>();
@@ -190,6 +230,8 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
             if (isLeader) {
                 tips.add("kick");
+                tips.add("accept");
+
                 return tips;
             }
 
