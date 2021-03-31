@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class FactionPlayer {
-    @Getter @Setter private String factionName;
+    @Getter @Setter private String factionName = "";
     @Getter @Setter private String ign;
     @Getter private final UUID uuid;
 
