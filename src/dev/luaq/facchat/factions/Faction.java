@@ -102,6 +102,6 @@ public class Faction {
     public void setConfigValues() {
         section.set("name", this.name);
         section.set("max", this.maxMembers);
-        section.set("leader", this.leader);
+        section.set("leader", this.leader.toString());
     }
 }
