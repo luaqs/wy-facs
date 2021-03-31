@@ -14,7 +14,7 @@ commands:
   factionadmin:
     aliases: [ 'facman', 'fa', 'facadmin' ]
     description: 'Admin command for managing existing factions.'
-    usage: "/factionadmin <'add', 'mod', 'remove'> <[...faction]> <'leader', 'max', 'name'> [value]"
+    usage: "/factionadmin <'add', 'mod', 'remove'> <[...faction]> <'leader', 'max', 'name', 'addmember', 'removemember'> [value]"
     permission: 'factionchat.admin'
 
   factionchat:
