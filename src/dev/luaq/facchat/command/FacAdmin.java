@@ -29,7 +29,7 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
 
         // get the faction here, because why not
         Faction faction = null;
-        if (args.length >= 1) {
+        if (args.length >= 2) {
             faction = FactionManager.getManager().getFaction(args[1]);
         }
 
@@ -56,7 +56,7 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
 
     private void handleMod(CommandSender sender, Command command, String[] args, Faction faction) {
         if (faction == null) {
-            sender.sendMessage(LangUtils.langf("faction.error.noexisting", args.length >= 1 ? args[1] : ""));
+            sender.sendMessage(LangUtils.langf("faction.error.noexisting", args.length > 1 ? args[1] : ""));
             return;
         }
 
@@ -113,7 +113,7 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
                 break;
         }
 
-        sender.sendMessage(LangUtils.colorf("&aRan &6%s &awith resulting value being &6%s&a.", sub, value));
+        sender.sendMessage(LangUtils.colorf("&aRan &6%s&a in &6%s&a with resulting value being &6%s&a.", sub, faction.getName(), value));
 
         // saving the faction
         faction.setConfigValues();
