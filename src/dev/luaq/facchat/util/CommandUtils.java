@@ -1,15 +1,11 @@
 package dev.luaq.facchat.util;
 
 import dev.luaq.facchat.FacPlugin;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
+import org.bukkit.command.*;
 
 public class CommandUtils {
-    public static void sendUsage(Player player, Command cmd) {
-        player.sendMessage(LangUtils.langf("error.usage", cmd.getUsage()));
+    public static void sendUsage(CommandSender sender, Command cmd) {
+        sender.sendMessage(LangUtils.langf("error.usage", cmd.getUsage()));
     }
 
     public static void registerCommand(String name, CommandExecutor executor) {
