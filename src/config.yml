@@ -47,7 +47,7 @@ lang:
 
     join:
       joined: '&a%s accepted %s into the faction.'
-      expired: '&cYou request to join has expired.'
+      expired: '&cYour request to join has expired.'
       leaderoff: '&cYou cannot request to join %s at the time, the leader is offline. If you are a part of this faction please wait until they are online or tell them to login.'
       requested: '&aYour join request has been sent to %s, wait for the leader to accept.'
       request: '&a%s has requested to join the faction. You have 30 seconds to use &6/f accept %1$s &ato let them in.'
