@@ -10,7 +10,7 @@ import java.util.*;
 public class RequestManager {
     @Getter private final int taskId;
 
-    private final Map<Request, Long> requests = new HashMap<>();
+    @Getter private final Map<Request, Long> requests = new HashMap<>();
 
     public RequestManager() {
         // start a task to clear all expired requests
