@@ -6,6 +6,7 @@ import dev.luaq.facchat.factions.player.FactionPlayer;
 import dev.luaq.facchat.factions.player.PlayerSettings;
 import dev.luaq.facchat.factions.requests.Request;
 import dev.luaq.facchat.factions.requests.RequestManager;
+import dev.luaq.facchat.util.FactionUtils;
 import dev.luaq.facchat.util.LangUtils;
 import dev.luaq.facchat.util.CommandUtils;
 import org.bukkit.OfflinePlayer;
@@ -259,8 +260,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
 
         if (args[0].equalsIgnoreCase("join")) {
             // show suggestions for all available factions
-            return FactionManager.getManager().getFactions().stream()
-                    .map(Faction::getAbbr).collect(Collectors.toList());
+            return FactionUtils.getFactionAbbrs();
         }
 
         return Collections.emptyList();
