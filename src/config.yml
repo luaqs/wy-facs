@@ -8,6 +8,7 @@ lang:
     lazy: '&cI don''t want to implement it, but if you find this @ me in the Discord.'
     usage: '&cUsage: %s'
     noplayer: '&cPlayer not found.'
+    outgoing: '&cYou already have an outgoing request.'
 
   permission:
     leader: '&cYou have to be the leader of a faction to do this.'
@@ -23,6 +24,7 @@ lang:
       - '&8&m------------------'
 
     error:
+      leaderoff: '&cYou cannot request to join right now, the leader is offline.'
       nojoin: '&cYou cannot join a faction, you''re in one.'
       noexisting: '&cFaction with the name ''%s'' does not exist.'
       nofaction: '&cYou are not in a faction right now.'
@@ -42,9 +44,11 @@ lang:
     left: '&aYou have successfully left %s, farewell!'
 
     join:
-      requested: '&aYour join request has been sent to %s, wait for the leader to accept.'
+      joined: '&a%s accepted %s into the faction.'
+      expired: '&cYou request to join has expired.'
       leaderoff: '&cYou cannot request to join %s at the time, the leader is offline. If you are a part of this faction please wait until they are online or tell them to login.'
-      request: '&a%s has requested to join the faction. Do &6/f accept %1$s &ato let them in.'
+      requested: '&aYour join request has been sent to %s, wait for the leader to accept.'
+      request: '&a%s has requested to join the faction. You have 30 seconds to use &6/f accept %1$s &ato let them in.'
 
   configreload: '&aReloaded the factions config.'
 
