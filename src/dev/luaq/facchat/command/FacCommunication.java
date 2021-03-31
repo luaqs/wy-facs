@@ -30,15 +30,19 @@ public class FacCommunication implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        FactionPlayer facPlayer = manager.getFactionPlayer(player.getUniqueId());
+        PlayerSettings settings = facPlayer.getSettings();
         if (args.length == 0) {
-            FactionPlayer facPlayer = manager.getFactionPlayer(player.getUniqueId());
-            PlayerSettings settings = facPlayer.getSettings();
-
             boolean primary = !settings.isFactionChatPrimary();
             settings.setFactionChatPrimary(primary);
 
             player.sendMessage(LangUtils.langf("faction.chat.focustoggle", primary ? "FACTION" : "PUBLIC"));
 
+            return true;
+        }
+
+        if (!settings.isSeeFactionChat()) {
+            player.sendMessage(LangUtils.langf("faction.chat.off"));
             return true;
         }
 

@@ -46,6 +46,11 @@ public class Faction {
     }
 
     public void chat(Player player, String message) {
+        FactionPlayer facPlayer = FactionManager.getManager().getFactionPlayer(player.getUniqueId());
+        if (!facPlayer.getSettings().isSeeFactionChat()) {
+            return;
+        }
+
         for (FactionPlayer member : onlineMembers()) {
             if (!member.getSettings().isSeeFactionChat()) {
                 continue; // they don't wanna see faction chat
