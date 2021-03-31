@@ -250,6 +250,14 @@ public class FacBase implements CommandExecutor, TabCompleter {
             return Collections.emptyList();
         }
 
+        // send back a list of pending requests
+        if (args[0].equalsIgnoreCase("accept") && isLeader) {
+            return FactionManager.getManager().getRequestManager().getRequests().keySet().stream()
+                    .filter(request -> fac.getAbbr().equalsIgnoreCase(request.getRequested()))
+                    .map(request -> request.getPlayer().getName())
+                    .collect(Collectors.toList());
+        }
+
         // if they're a leader of a faction then offer the list of members to kick
         if (args[0].equalsIgnoreCase("kick") && isLeader) {
             return fac.getMembers().stream()
