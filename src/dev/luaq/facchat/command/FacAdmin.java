@@ -113,6 +113,8 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
                 break;
         }
 
+        sender.sendMessage(LangUtils.colorf("&aRan &6%s &awith resulting value being &6%s&a.", sub, value));
+
         // saving the faction
         faction.setConfigValues();
         FacPlugin.getInstance().saveConfig();
