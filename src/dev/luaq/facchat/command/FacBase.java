@@ -182,7 +182,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
         List<FactionPlayer> members = faction.getMembers();
         // create the memberList, the faction members separated bt commas
         String memberList = members.stream().map(member -> {
-            boolean isOnline = member.getOnlinePlayer() == null;
+            boolean isOnline = member.getOnlinePlayer() != null;
             // send the name back with green for online, red for offline
             return String.format("%s%s", isOnline ? "&a" : "&c", member.getName());
         }).collect(Collectors.joining("&7, "));
