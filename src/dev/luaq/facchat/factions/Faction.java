@@ -1,6 +1,7 @@
 package dev.luaq.facchat.factions;
 
 import dev.luaq.facchat.factions.player.FactionPlayer;
+import dev.luaq.facchat.factions.requests.Request;
 import dev.luaq.facchat.util.LangUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +33,10 @@ public class Faction {
     }
 
     public void requestJoin(Player player) {
-        // TODO: 2021-03-29 send message to leader
+        FactionManager manager = FactionManager.getManager();
+        FactionPlayer facPlayer = manager.getFactionPlayer(player.getUniqueId());
+
+        manager.getRequestManager().addToQueue(new Request(facPlayer, abbr));
     }
 
     @Deprecated
