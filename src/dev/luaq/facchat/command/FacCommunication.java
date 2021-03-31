@@ -8,9 +8,13 @@ import dev.luaq.facchat.util.LangUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class FacCommunication implements CommandExecutor {
+import java.util.Collections;
+import java.util.List;
+
+public class FacCommunication implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!(sender instanceof Player)) {
@@ -42,5 +46,10 @@ public class FacCommunication implements CommandExecutor {
         fac.chat(player, String.join(" ", args));
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
+        return Collections.emptyList();
     }
 }
