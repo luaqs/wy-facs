@@ -34,12 +34,12 @@ lang:
 
     broadcast:
       chat: '&5%s > &e%s&f: %s'
-      off: '&cYou can''t talk in faction chat while it''s off for you. Do /f chat to re-enable.'
       playerkicked: '&c%s has kicked %s from the faction.'
       playerquit: '&c%s has quit the faction.'
 
     chat:
       focustoggle: '&aNow speaking in &6%s&a, use this command again to toggle it.'
+      off: '&cYou can''t talk in faction chat while it''s off for you. Do /f chat to re-enable.'
       toggle: '&aToggled the faction chat &6%s&a.'
 
     kicked: '&cYou''ve been kicked from the faction.'
