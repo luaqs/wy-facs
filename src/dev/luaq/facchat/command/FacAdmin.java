@@ -1,5 +1,6 @@
 package dev.luaq.facchat.command;
 
+import dev.luaq.facchat.FacPlugin;
 import dev.luaq.facchat.factions.Faction;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.factions.player.FactionPlayer;
@@ -71,7 +72,7 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
 
         FactionManager manager = FactionManager.getManager();
         // parse the value as a player if possible
-        FactionPlayer player = null;
+        FactionPlayer player = manager.getFactionPlayer(value);
 
         switch (sub) {
             case "leader":
@@ -111,6 +112,10 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
 
                 break;
         }
+
+        // saving the faction
+        faction.setConfigValues();
+        FacPlugin.getInstance().saveConfig();
     }
 
     @Override

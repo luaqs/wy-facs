@@ -20,12 +20,14 @@ public class Faction {
     @Setter private int maxMembers;
     @Setter @Getter private UUID leader;
 
+    private final ConfigurationSection section;
+
     public Faction(ConfigurationSection config, String key) {
         // abbreviated term
         this.abbr = key;
 
         // section for the faction in the config file
-        ConfigurationSection section = config.getConfigurationSection(String.format("factions.%s", key));
+        this.section = config.getConfigurationSection(String.format("factions.%s", key));
 
         // set all fields
         this.name = section.getString("name");
@@ -95,5 +97,9 @@ public class Faction {
         }
 
         return maxMembers;
+    }
+
+    public void setConfigValues() {
+
     }
 }
