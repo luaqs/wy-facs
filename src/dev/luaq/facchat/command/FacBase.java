@@ -58,8 +58,7 @@ public class FacBase implements CommandExecutor, TabCompleter {
                 break;
 
             case "info":
-                player.sendMessage(LangUtils.langf("error.lazy"));
-                // TODO: 2021-03-29 dsiahdu
+                sendInfo(player, faction);
                 break;
 
             case "kick":
@@ -131,6 +130,25 @@ public class FacBase implements CommandExecutor, TabCompleter {
         // request to join the faction
         requested.requestJoin(player);
         player.sendMessage(LangUtils.langf("faction.join.requested", requested.getName()));
+    }
+
+    private void sendInfo(Player player, Faction faction) {
+        // cannot see info for a faction you aren't in
+        if (faction == null) {
+            player.sendMessage(LangUtils.langf("faction.error.nofaction"));
+            return;
+        }
+
+        List<FactionPlayer> members = faction.getMembers();
+        // create the memberList, the faction members separated bt commas
+        String memberList = members.stream().map(member -> {
+            boolean isOnline = member.getOnlinePlayer() == null;
+            // send the name back with green for online, red for offline
+            return String.format("%s%s", isOnline ? "&a" : "&c", member.getName());
+        }).collect(Collectors.joining("&7, "));
+
+        // send the info message
+        player.sendMessage(LangUtils.langf("faction.info", faction.getName(), faction.getAbbr(), members.size(), faction.getMaxMembers(), memberList));
     }
 
     private void quitFaction(FactionManager manager, Player player, Faction faction) {

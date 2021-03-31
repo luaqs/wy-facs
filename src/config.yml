@@ -14,6 +14,14 @@ lang:
     cantkick: '&cYou can''t kick %s, they are not in your faction.'
 
   faction:
+    info:
+      - '&8&m------------------'
+      - '&7Name: &5%s &7(%s)'
+      - '&7Members: &d%,d&7/%,d'
+      - '&r'
+      - '%s'
+      - '&8&m------------------'
+
     error:
       nojoin: '&cYou cannot join a faction, you''re in one.'
       noexisting: '&cFaction with the name ''%s'' does not exist.'
