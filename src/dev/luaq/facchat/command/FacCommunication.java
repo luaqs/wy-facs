@@ -37,7 +37,7 @@ public class FacCommunication implements CommandExecutor, TabCompleter {
             boolean primary = !settings.isFactionChatPrimary();
             settings.setFactionChatPrimary(primary);
 
-            player.sendMessage(LangUtils.langf("faction.chat.toggleprimary", primary ? "FACTION" : "PUBLIC"));
+            player.sendMessage(LangUtils.langf("faction.chat.focustoggle", primary ? "FACTION" : "PUBLIC"));
 
             return true;
         }
