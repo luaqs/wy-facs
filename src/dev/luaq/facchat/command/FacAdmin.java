@@ -77,7 +77,9 @@ public class FacAdmin implements CommandExecutor, TabCompleter {
         switch (sub) {
             case "leader":
                 // the new leader of the faction
+                // will remove the player from their current faction
                 faction.setLeader(player.getUuid());
+                player.setFactionName(faction.getAbbr());
                 break;
 
             case "max":
