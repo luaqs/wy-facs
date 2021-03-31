@@ -24,6 +24,7 @@ lang:
       - '&8&m------------------'
 
     error:
+      full: '&cYou already have the maximum amount of people in the faction.'
       leaderoff: '&cYou cannot request to join right now, the leader is offline.'
       nojoin: '&cYou cannot join a faction, you''re in one.'
       noexisting: '&cFaction with the name ''%s'' does not exist.'

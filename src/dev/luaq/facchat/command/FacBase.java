@@ -86,6 +86,11 @@ public class FacBase implements CommandExecutor, TabCompleter {
             return;
         }
 
+        if (faction.getMembers().size() >= faction.getMaxMembers()) {
+            player.sendMessage(LangUtils.langf("faction.error.full"));
+            return;
+        }
+
         FactionPlayer target;
         if (args.length < 2 || (target = manager.getFactionPlayer(args[1])) == null || !requestManager.hasRequest(target.getUuid())) {
             player.sendMessage(LangUtils.langf("error.noplayer"));
