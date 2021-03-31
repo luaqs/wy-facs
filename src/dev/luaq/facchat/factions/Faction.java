@@ -58,8 +58,8 @@ public class Faction {
         onlineMembers().forEach(player -> player.getOnlinePlayer().sendMessage(LangUtils.colorf(message, format)));
     }
 
-    public boolean isLeader(Player player) {
-        return getLeader().equals(player.getUniqueId());
+    public boolean isLeader(UUID uuid) {
+        return getLeader().equals(uuid);
     }
 
     public boolean hasMember(UUID uuid) {
