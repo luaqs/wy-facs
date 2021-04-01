@@ -164,8 +164,9 @@ public class FacBase implements CommandExecutor, TabCompleter {
         }
 
         // check if the leader is online
-        Player leader = manager.getFactionPlayer(requested.getLeader()).getOnlinePlayer();
-        if (leader == null) {
+        FactionPlayer facLeader = manager.getFactionPlayer(requested.getLeader());
+        Player leader;
+        if (facLeader == null || (leader = facLeader.getOnlinePlayer()) == null) {
             player.sendMessage(LangUtils.langf("faction.error.leaderoff"));
             return;
         }
