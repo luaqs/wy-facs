@@ -1,6 +1,8 @@
 prefixstyle: '&7[%s] '
 
 maxsize: 10
+
+playersave: 300
 playerfile: 'players.json'
 
 lang:

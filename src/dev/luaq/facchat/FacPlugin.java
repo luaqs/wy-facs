@@ -7,6 +7,7 @@ import dev.luaq.facchat.command.ReloadConfig;
 import dev.luaq.facchat.factions.FactionManager;
 import dev.luaq.facchat.listener.ChatHandler;
 import dev.luaq.facchat.listener.ConnectionHandler;
+import dev.luaq.facchat.listener.SavingTask;
 import dev.luaq.facchat.listener.placeholder.PrefixHandler;
 import dev.luaq.facchat.util.CommandUtils;
 import dev.luaq.facchat.util.LangUtils;
@@ -26,6 +27,10 @@ public class FacPlugin extends JavaPlugin {
         regPlaceholder();
         regCommands();
         regEvents();
+
+        // start saving task after everything has been done
+        long saveFreq = getConfig().getInt("playersave") * 1000L;
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new SavingTask(), saveFreq, saveFreq);
     }
 
     private void regPlaceholder() {
